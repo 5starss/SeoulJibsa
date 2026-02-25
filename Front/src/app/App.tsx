@@ -1,13 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
-import { useUIStore } from "../store/uiStore";
 
 // 레이아웃 및 인증 관련
 import Layout from "../components/layout/Layout";
-import FullLayout from "../components/layout/FullLayout";
+import ChatbotLayout from "../components/chatbot/ChatbotLayout";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import ScrollToTop from "../components/common/ScrollToTop";
-import AlertModal from "../components/modals/AlertModal";
 
 // 일반 페이지
 import HomePage from "../pages/HomePage";
@@ -19,9 +17,9 @@ import MyPage from "../pages/MyPage";
 import SocialCallback from "../pages/SocialCallback";
 
 // 놀이터 페이지
-import Checkin from "../pages/Checkin/Checkin";
-import Quiz from "../pages/Checkin/Quiz";
-import Preference from "../pages/Checkin/Preference";
+import Playground from "../pages/Playground/Playground";
+import Quiz from "../pages/Playground/Quiz";
+import Preference from "../pages/Playground/Preference";
 
 // 404 Not Found 페이지
 import NotFoundPage from "../pages/NotFoundPage";
@@ -35,8 +33,6 @@ import NoticeUpdatePage from "../pages/Admin/NoticeUpdatePage";
 
 
 export default function App() {
-  const { alertOpen, alert, closeAlert } = useUIStore();
-
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -50,6 +46,13 @@ export default function App() {
             <Route path="/notices">
               <Route index element={<NoticesPage />} />
               <Route path=":noticeId" element={<NoticeDetailPage />} />
+            </Route>
+
+            {/* 놀이터 관련 */}
+            <Route path="/playground">
+              <Route index element={<Playground />} />
+              <Route path="quiz" element={<Quiz />} />
+              <Route path="preference" element={<Preference />} />
             </Route>
 
             {/* 인증이 필요한 페이지 */}
@@ -69,40 +72,13 @@ export default function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Route>
 
-          {/* FullLayout */}
-          <Route element={<FullLayout />}>
+          {/* 챗봇 페이지: ChatbotLayout 적용 */}
+          <Route element={<ChatbotLayout />}>
             <Route path="/chatbot" element={<Chatbot />} />
             <Route path="/chatbot/*" element={<NotFoundPage />} />
-
-            {/* 놀이터 관련 */}
-            <Route path="/checkin">
-              <Route index element={<Checkin />} />
-              <Route path="quiz" element={<Quiz />} />
-              <Route path="preference" element={<Preference />} />
-            </Route>
           </Route>
 
         </Routes>
-
-        {/* 전역 AlertModal 배치 (Routes 밖, AuthProvider 안) */}
-        <AlertModal
-          isOpen={alertOpen}
-          title={alert?.title}
-          message={alert?.message ?? ""}
-          icon={alert?.icon}
-          variant={alert?.variant}
-          confirmText={alert?.confirmText}
-          onConfirm={() => {
-            alert?.onConfirm?.();
-            closeAlert();
-          }}
-          onClose={() => {
-            alert?.onClose?.();
-            closeAlert();
-          }}
-          cancelText={alert?.cancelText}
-        />
-
       </AuthProvider>
     </BrowserRouter>
   );

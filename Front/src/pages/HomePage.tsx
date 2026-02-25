@@ -6,8 +6,6 @@ import HeroSearch from "../components/home/HeroSearch";
 import NoticeCarousel from "../components/home/NoticeCarousel";
 import RelatedSites from "../components/home/RelatedSites";
 
-// import ConciergeFloatingButton from "../components/home/ConciergeFloatingButton";
-
 // ----------------------------------------------------------------------
 // [Internal Component] Scroll Reveal
 // ----------------------------------------------------------------------
@@ -94,8 +92,6 @@ export default function HomePage() {
       <ScrollRevealSection>
         <RelatedSites />
       </ScrollRevealSection>
-
-      {/* <ConciergeFloatingButton /> */}
 
     </main>
   );

@@ -31,7 +31,7 @@ export default function NoticeChatbotPanel({ noticeTitle }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
-  
+
   // 스크롤 컨테이너를 잡기 위한 Ref 생성
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -76,8 +76,8 @@ export default function NoticeChatbotPanel({ noticeTitle }: Props) {
       setInput("");
 
       try {
-        const answer = await postChat(value, noticeTitle); 
-        
+        const answer = await postChat(value, noticeTitle);
+
         const aiMsg: ChatMessage = {
           id: `ai-${Date.now()}`,
           role: "assistant",
@@ -118,7 +118,7 @@ export default function NoticeChatbotPanel({ noticeTitle }: Props) {
       </header>
 
       {/* 채팅 목록 */}
-      <div 
+      <div
         ref={chatContainerRef}
         className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scrollbar-hide"
       >
@@ -127,14 +127,14 @@ export default function NoticeChatbotPanel({ noticeTitle }: Props) {
         ))}
         {isSending && (
           <div className="flex justify-start">
-             <div className="mr-3 mt-1 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="material-symbols-outlined text-[18px] text-primary">smart_toy</span>
-             </div>
-             <div className="bg-white rounded-2xl px-4 py-3 border border-black/5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}/>
-                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}/>
-                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}/>
-             </div>
+            <div className="mr-3 mt-1 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px] text-primary">smart_toy</span>
+            </div>
+            <div className="bg-white rounded-2xl px-4 py-3 border border-black/5 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }} />
+              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+            </div>
           </div>
         )}
       </div>
@@ -153,17 +153,15 @@ export default function NoticeChatbotPanel({ noticeTitle }: Props) {
               }
             }}
             placeholder={isSending ? "답변을 생성 중입니다..." : "메시지를 입력하세요"}
-            className="flex-1 h-11 rounded-xl bg-gray-50 px-4 text-sm outline-none"
+            className="flex-1 h-11 rounded-xl bg-gray-50 px-4 text-sm outline-none focus:bg-white focus:ring-2 focus:ring-primary/30 transition border border-transparent focus:border-primary/30"
           />
           <button
             type="button"
             disabled={isSending || !input.trim()}
             onClick={() => handleSendText(input)}
-            className="h-11 w-11 rounded-full bg-primary text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="h-11 w-11 rounded-xl bg-[#00D179] text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span className="material-symbols-outlined text-[24px] leading-none font-bold">
-              arrow_upward
-            </span>
+            <span className="material-symbols-outlined text-[20px]">send</span>
           </button>
         </div>
       </div>
